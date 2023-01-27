@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $("#b1").click(function(){
+          $(".rb").show();
+          $(".rb").attr("disabled", true);
+        });
+      });
+
+
+    </script>
+</head>
+
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="">Profile</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="profile/create">create poll</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}"> <strong> {{ message }} </strong> </div>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+
+  <div class="feature col">
+    <div class="feature-icon bg-primary bg-gradient">
+      <svg class="bi" width="1em" height="1em">
+        <use xlink:href="#collection"></use>
+      </svg>
+    </div>
+    <h3>Name:{{ user.first_name }}</h3>
+    <h3>Email:{{ user.email }}</h3>
+
+  </div>
+  <div class="container my-5">
+    {% for que in ques %}
+    <div>
+      <table>
+        <h4 class="card-header">{{que.question}}</h4>
+        <tr>
+          <td><input type="radio" class="rb" name="{{que.id}}" id="op1" value="{{que.op1}}"> {{que.op1}} </td>
+        </tr>
+        <tr>
+          <td><input type="radio" class="rb" name="{{que.id}}" id="op2" value="{{que.op2}}"> {{que.op2}} </td>
+        </tr>
+        <tr>
+          <td><input type="radio" class="rb" name="{{que.id}}" id="op3" value="{{que.op3}}"> {{que.op3}} </td>
+        </tr>
+        <tr>
+          <td><input type="radio" class="rb" name="{{que.id}}" id="op4" value="{{que.op4}}"> {{que.op4}} </td>
+        </tr>
+        <tr>
+          <td><label id='answer' class="rb" style="display: none;"> <strong>The correct answer is {{que.answer}}</strong></label></td>
+        </tr>
+      </table>
+        {% endfor %}
+    </div>
+  </div>
+
+<div class="footer"><input type="submit" id="b1" class='btn btn-primary my-3' value="Submit" onclick="getanswer();"></div>
+
+
+
+
+  {% endif %}
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
+
+</html>
